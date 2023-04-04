@@ -18,6 +18,8 @@ services:
   # mysql設定
   db:
     build: ./infra/mysql
+    ports:
+      - "4306:3306"
     volumes:
       - db-store:/var/lib/mysql
 

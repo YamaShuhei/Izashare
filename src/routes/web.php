@@ -26,6 +26,9 @@ Route::group(['prefix' => 'post'], function(){
 Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 Route::get('/index', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
+Route::get('/edit/{id}', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
+Route::post('/update/{id}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
+Route::post('/destroy/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
 });
 
 

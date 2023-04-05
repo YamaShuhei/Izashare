@@ -7,15 +7,21 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    // 一覧画面
     public function index(){
-        
-        $post = Post::all();
+        $post = DB::table('users')
+        ->join('posts','users.id','=','posts.user_id')
+        ->select('posts.title','posts.image','posts.description','posts.user_id','posts.id','users.name')
+        ->get();
+
         return view('post.index',['post' => $post]);
     }
 
+    // 新規投稿画面
     public function create(){
         return view('post.create');
     }
@@ -41,8 +47,14 @@ class PostController extends Controller
             $post->save();
 
             //   更新後投稿一覧へ遷移
-            return view('post.index',['post' => $posts]);
+            return redirect('post/index');
             
+        }
+
+        public function show($id){
+            $post = Post::find($id);
+
+            return view('post.show',['post' => $post]);
         }
 
         // 更新
@@ -66,7 +78,7 @@ class PostController extends Controller
               $post->save();
               
             //   更新後投稿一覧へ遷移
-            return view('post.index',['post' => $posts]);
+            return redirect('post/index');
 
         }
 

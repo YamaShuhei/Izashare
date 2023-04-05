@@ -160,6 +160,7 @@ return [
         'title' => 'タイトル',
         'image' => '画像',
         'description' => '詳細',
+        'body' => 'コメント',
     ],
 
 ];

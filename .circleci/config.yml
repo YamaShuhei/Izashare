@@ -103,18 +103,18 @@ jobs:
       - image: circleci/php:7.4-node-browsers
     steps:
       - checkout
-+     - add_ssh_keys
+      - add_ssh_keys
       - run:
-+         name: aws deploy
-          command: |
-+           ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd grfl && \
-+             git pull origin master && \
-+             cd /var/www/grfl/src && \
-+             composer install -n --no-dev --prefer-dist && \
-+             npm ci && \
-+             npm run prod && \
-+             php artisan migrate --force && \
-+             php artisan config:cache"
+         name: aws deploy
+         command: |
+           ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd grfl && \
+             git pull origin master && \
+             cd /var/www/izashare/src && \
+             composer install -n --no-dev --prefer-dist && \
+             npm ci && \
+             npm run prod && \
+             php artisan migrate --force && \
+             php artisan config:cache"
 
 workflows:
   version: 2
@@ -127,4 +127,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main

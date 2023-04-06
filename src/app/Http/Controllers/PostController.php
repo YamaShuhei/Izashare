@@ -12,13 +12,29 @@ use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
     // 一覧画面
-    public function index(){
-        $post = DB::table('users')
-        ->join('posts','users.id','=','posts.user_id')
-        ->select('posts.title','posts.image','posts.description','posts.user_id','posts.id','users.name')
-        ->get();
+    public function index(Request $request){
+        $post = Post::paginate(10);
 
-        return view('post.index',['post' => $post]);
+        $search = $request->input('search');
+        $query = Post::query();
+
+        if($search) {
+          $spaceConversion = mb_convert_kana($search ,'s');
+          $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+
+          foreach($wordArraySearched as $value) {
+            $query->where('title', 'like', '%'.$value.'%');
+          }
+
+          $post = $query->paginate(10);
+        }
+
+        return view('post.index')
+          ->with([
+            'post' => $post,
+            'search' => $search,
+          ]);
+          
     }
 
     // 新規投稿画面

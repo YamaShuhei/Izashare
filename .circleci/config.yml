@@ -8,7 +8,6 @@ executors:
     environment:
       - APP_DEBUG: true
       - APP_ENV: testing
-      - APP_KEY: base64:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=
       - DB_CONNECTION: circle_testing
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/repo
@@ -107,8 +106,8 @@ jobs:
       - run:
          name: aws deploy
          command: |
-           ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd grfl && \
-             git pull origin master && \
+           ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd izashare && \
+             git pull origin main && \
              cd /var/www/izashare/src && \
              composer install -n --no-dev --prefer-dist && \
              npm ci && \

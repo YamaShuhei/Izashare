@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -19,7 +20,7 @@ class PostController extends Controller
         $query = Post::query();
 
         if($search) {
-          $spaceConversion = mb_convert_kana($search ,'s');
+          $spaceConversion = mb_convert_kana($search ,'s', 'utf-8');
           $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
 
           foreach($wordArraySearched as $value) {

@@ -1,4 +1,5 @@
 import './bootstrap';
+import '../sass/app.scss';
 
 function delete_alert(e){
    if(!window.confirm('本当に削除しますか？')){

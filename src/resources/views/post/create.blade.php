@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
   <p class="fs-1">新規登録</p>
-  <form class="p-3 bg-light border rounded shadow-sm" method="POST" action="{{route('post.store')}}" enctype="multipart/form-data">
+  <form class="p-3 bg-light border rounded shadow-sm" method="POST" action="{{route('post.store')}}" enctype="multipart/form-data" accept-charset="UTF-8">
       @csrf
       {{-- タイトル入力 --}}
       <div class="row mb-2">

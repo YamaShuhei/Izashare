@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand text-white fs-1 fw-bolder" href="{{route('post.index')}}">
-                    {{ config('app.name', 'Nomishare') }}
+                    {{('Izashare') }}
                 </a>
                 <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -55,14 +55,14 @@
                             @endif
                         @else
                             <li class="nav-item dropdown border  border-2 rounded">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <p class="bg-secondary text-white fw-bold text-center m-0">
                                     {{ Auth::user()->name }}
-                                </a>
+                                </p>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item text-end" href="{{route('post.index')}}">投稿一覧</a>
-                                    <a class="dropdown-item text-end" href="{{route('post.create')}}">新規投稿</a>
-                                    <a class="dropdown-item text-end" href="{{ route('logout') }}"
+                                <div class="btn-group">
+                                    <a class="btn btn-secondary" href="{{route('post.index')}}">投稿一覧</a>
+                                    <a class="btn btn-secondary" href="{{route('post.create')}}">新規投稿</a>
+                                    <a class="btn btn-secondary" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('ログアウト') }}

@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -39,6 +41,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:admin');
     }
 
     /**
@@ -69,5 +72,52 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+
+/**管理者用 */
+    protected function adminValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['authgroup' => 'admin']);
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        $this->adminValidator($request->all())->validate();
+
+        event(new Registered($user = $this->createAdmin($request->all())));
+
+        Auth::guard('admin')->login($user);
+
+        if ($response = $this->registeredAdmin($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect(route('admin-home'));
+    }
+
+    protected function createAdmin(array $data)
+    {
+        return Admin::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
+
+    protected function registeredAdmin(Request $request, $user)
+    {
+        //
     }
 }

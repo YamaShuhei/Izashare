@@ -5,10 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mt-5 ">
             <div class="card shadow-sm">
-                <div class="card-header fw-bold">{{ __('ログイン') }}</div>
+                <div class="card-header fw-bold">{{ isset($authgroup) ? ucwords($authgroup) : ""}} {{ __('ログイン') }}</div>
 
                 <div class="card-body">
+                    @isset($authgroup)
+                    <form method="POST" action="{{ url("login/$authgroup") }}">
+                    @else
                     <form method="POST" action="{{ route('login') }}">
+                    @endisset
                         @csrf
 
                         <div class="row mb-3">

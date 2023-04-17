@@ -5,16 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header">{{ isset($authgroup) ? '管理者' : ""}}{{ __('パスワードリセット') }}</div>
 
                 <div class="card-body">
+                    @isset($authgroup)
+                    <form method="POST" action="{{ route($authgroup.'.password.update') }}">
+                    @else
                     <form method="POST" action="{{ route('password.update') }}">
+                    @endisset
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('メールアドレス') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>

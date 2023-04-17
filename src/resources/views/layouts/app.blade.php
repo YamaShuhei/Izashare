@@ -41,27 +41,56 @@
                     <!-- ナビバー右部 -->
                     <ul class="navbar-nav ms-auto">
                         <!-- メニューバー -->
-                        @guest
+                        @if(!Auth::check() && (!isset($authgroup) || !Auth::guard($authgroup)->check()))
                             @if (Route::has('login'))
+                              {{-- 管理者用ログインリンク --}}
+                              @isset($authgroup)
+                               <a class="nav-link text-white text-end" href="{{ url("login/$authgroup") }}">{{ __('管理者ログイン') }}</a>
+                              @else
                                 <li class="nav-item">
                                     <a class="nav-link text-white text-end" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                                 </li>
+                              @endisset
                             @endif
-
+                            
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-white text-end" href="{{ route('register') }}">{{ __('新規登録') }}</a>
-                                </li>
+                            @isset($authgroup)
+                              @if (Route::has("$authgroup-register"))
+                                  <li class="nav-item">
+                                      <a class="nav-link text-white text-end" href="{{ route("$authgroup-register") }}">{{ __('管理者新規登録') }}</a>
+                                  </li>
+                              @endif
+                            @else
+                              @if (Route::has('register'))
+                                  <li class="nav-item">
+                                      <a class="nav-link text-white text-end" href="{{ route('register') }}">{{ __('新規登録') }}</a>
+                                  </li>
+                              @endif
+                            @endisset
                             @endif
                         @else
                             <li class="nav-item dropdown border  border-2 rounded">
                                 <p class="bg-secondary text-white fw-bold text-center m-0">
-                                    {{ Auth::user()->name }}
+                                  @isset($authgroup)
+                                  {{ Auth::guard($authgroup)->user()->name }}
+                                  @else
+                                  {{ Auth::user()->name }}
+                                  @endisset
                                 </p>
 
                                 <div class="btn-group">
                                     <a class="btn btn-secondary" href="{{route('post.index')}}">投稿一覧</a>
                                     <a class="btn btn-secondary" href="{{route('post.create')}}">新規投稿</a>
+                                    @isset($authgroup)
+                                      <a class="btn btn-secondary" href="{{ route('logout') }}"   
+                                          onclick="event.preventDefault();
+                                                          document.getElementById('logout-form').submit();">
+                                          {{ __('管理者ログアウト') }}
+                                      </a>
+                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> 
+                                          @csrf
+                                      </form>
+                                    @else
                                     <a class="btn btn-secondary" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -71,6 +100,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    @endisset
                                 </div>
                             </li>
                         @endguest

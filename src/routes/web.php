@@ -23,6 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // ログインしていない場合はトップページに遷移
 Route::group(['middleware' => ['auth']], function() {
+    //ユーザー画面
     Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
     #投稿用
     Route::group(['prefix' => 'post'], function(){
@@ -40,5 +41,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
 
 })->middleware('auth');
+
+    //管理者画面用
+    Route::get('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'showAdminLoginForm']);
+    Route::get('/register/admin', [App\Http\Controllers\Auth\RegisterController::class, 'showAdminRegisterForm']);
+    Route::post('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogin']);
+    Route::post('/logout/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogout']);
+    Route::post('/register/admin', [App\Http\Controllers\Auth\RegisterController::class, 'registerAdmin'])->name('admin-register');
+    Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
+    
 
 

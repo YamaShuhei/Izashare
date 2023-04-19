@@ -1,12 +1,6 @@
-// Body
-$body-bg: #f8fafc;
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
 
-body {
+body{
     width: 100%;
     height:100vh;
     background-image: url(../images/background.jpg);  
@@ -14,4 +8,29 @@ body {
     background-repeat: no-repeat;  
     background-attachment: fixed; 
     background-size: cover;
-   }
+}
+
+.o-0{
+    opacity:0;
+}
+
+.o-25{
+    opacity:0.25;
+}
+.o-50{
+    opacity:0.5;
+}
+.o-75{
+    opacity:0.75;
+}
+.o-100{
+    opacity:1;
+}
+
+.bg-none{
+    background-image:none;
+}
+
+.h-logo{
+    width:100px;
+}

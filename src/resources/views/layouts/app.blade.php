@@ -15,6 +15,7 @@
 
     <!-- スクリプト -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -23,10 +24,10 @@
 <body>
   <header>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark 0-50shadow-sm">
             <div class="container">
-                <a class="navbar-brand text-white fs-1 fw-bolder" href="{{route('post.index')}}">
-                    {{('Izashare') }}
+                <a class="navbar-brand" href="{{route('post.index')}}">
+                <img class="h-logo" src="{{asset('images/logo.png')}}">
                 </a>
                 <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -110,7 +111,7 @@
         </nav>
     </header>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

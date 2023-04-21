@@ -48,18 +48,25 @@ class PostController extends Controller
         $post = new Post();
         $posts = Post::all();
 
-        if ($file = $request->image) {
-            $fileName = time() . $file->getClientOriginalName();
-            $target_path = public_path('uploads/');
-            $file->move($target_path, $fileName);
-        }else {
-            $fileName = null;
-        }
+
+        $file_name = $request->file('image')->getClientOriginalName();
+        $post->image = Storage::disk('s3')->putFile('/', $request->file('image'), 'public');
+        
+        // if ($file = $request->image) {
+        //     $fileName = time() . $file->getClientOriginalName();
+        //     $target_path = public_path('uploads/');
+        //     $file->move($target_path, $fileName);
+
+        // }else {
+        //     $fileName = null;
+        // }
 
             $post->title = $request->input('title');
-            $post->image = $fileName;
+            // $post->image = $file;
             $post->description = $request->input('description');
             $post->user_id = Auth::id();
+
+
 
             $post->save();
 

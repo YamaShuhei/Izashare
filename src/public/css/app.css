@@ -39,16 +39,3 @@ body{
 .h-logo{
     width:100px;
 }
-
-/* ヘッダーボタン */
-.btn-border {
-    border: 2px solid #000;
-    border-top: 1px solid #000;
-    border-radius: 0 0 .5rem .5rem;
-    background: -webkit-repeating-linear-gradient(left, #000, #000 1px,
-      transparent 2px, transparent 6px);
-    background: repeating-linear-gradient(to right, #000, #000 1px,
-      transparent 2px, transparent 6px);
-    background-size: 12px 12px;
-    
-  }

@@ -24,7 +24,9 @@
     <div class="row">
       <div class="col-2">
         <a href="{{route('post.show',['id' => $p->id])}}">
-          <img src="../../uploads/{{$p->image}}"alt="" style="max-height: 150px; width: 100%">
+          @if($p->image)
+           <img src="{{$p->image}}" alt="" style="max-height: 150px; width: 100%;">
+          @endif
         </a>
       </div>
       <div class="col-10">

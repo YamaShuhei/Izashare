@@ -48,9 +48,12 @@ class PostController extends Controller
         $post = new Post();
         $posts = Post::all();
 
-
-        $file_name = $request->file('image')->getClientOriginalName();
-        $post->image = Storage::disk('s3')->putFile('/', $request->file('image'), 'public');
+        if ($request->hasFile('image')) {
+          $path = $request->file('image')->store('images', 's3');
+          $post->image = Storage::disk('s3')->url($path);
+      } else {
+          $post->image = null;
+      }
         
         // if ($file = $request->image) {
         //     $fileName = time() . $file->getClientOriginalName();
@@ -94,6 +97,7 @@ class PostController extends Controller
               } else {
                 $fileName = null;
               }
+              
 
               $post->title=$request->input('title');
               $post->image=$fileName;

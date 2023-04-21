@@ -12,21 +12,23 @@
     <!--フォント -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/90c1ff3ff9.js" crossorigin="anonymous"></script>
 
     <!-- スクリプト -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 </head>
 <body>
   <header>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-dark 0-50shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light hd-bg shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{route('post.index')}}">
+                <a href="{{route('post.index')}}">
                 <img class="h-logo" src="{{asset('images/logo.png')}}">
                 </a>
                 <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -49,7 +51,7 @@
                                <a class="nav-link text-white text-end" href="{{ url("login/$authgroup") }}">{{ __('管理者ログイン') }}</a>
                               @else
                                 <li class="nav-item">
-                                    <a class="nav-link text-white text-end" href="{{ route('login') }}">{{ __('ログイン') }}</a>
+                                    <a class="text-white text-end btn btn-border" href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i>{{ __('ログイン') }}</a>
                                 </li>
                               @endisset
                             @endif

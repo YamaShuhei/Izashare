@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container bg-none">
   <div class="row">
     <p class="fw-bold fs-2">投稿一覧</p>
     {{-- 検索フォーム --}}

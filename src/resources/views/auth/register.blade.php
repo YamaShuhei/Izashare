@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 mt-5 p-0 shadow">
             <div class="card">
                 <div class="card-header">{{ isset($authgroup) ? '管理者' : ""}} {{ __('新規登録') }}</div>
 

@@ -63,7 +63,7 @@ commands:
     steps:
       - run:
           name: Run npm
-          command: npm run dev
+          command: npm run build
           working_directory: src
   save-cache-npm:
     steps:

@@ -3,7 +3,7 @@ version: 2.1
 executors:
   laravel-circleci:
     docker:
-      - image: circleci/php:8.1-fpm-buster-node-browsers
+      - image: circleci/php:8.1.16-node-browsers
       - image: circleci/mysql:5.7
     environment:
       - APP_KEY: base64:K6uIH3aTmaGZr5IZyAiRDeV7wA8ZwXmWKQpIjxiRJME= 
@@ -103,7 +103,7 @@ jobs:
       - test-unittest
   deploy:
     docker:
-      - image: circleci/php:8.1-fpm-buster-node-browsers
+      - image: circleci/php:8.1.16-node-browsers
     steps:
       - checkout
       - add_ssh_keys

@@ -1,9 +1,9 @@
-FROM mysql/mysql-server:8.0
+FROM mysql/mysql-server:5.7
 
 ENV MYSQL_DATABASE=laravel \
-  MYSQL_USER=phper \
-  MYSQL_PASSWORD=secret \
-  MYSQL_ROOT_PASSWORD=secret \
+  MYSQL_USER=admin \
+  MYSQL_PASSWORD=LMjfmygv9bZ80kR5TBF8 \
+  MYSQL_ROOT_PASSWORD=LMjfmygv9bZ80kR5TBF8 \
   TZ=Asia/Tokyo
 
 COPY ./my.cnf /etc/my.cnf

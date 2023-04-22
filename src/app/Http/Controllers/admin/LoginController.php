@@ -73,7 +73,7 @@ class LoginController extends Controller
         }
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            return redirect()->intended('/admin');
+            return redirect()->intended('/admin/index');
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

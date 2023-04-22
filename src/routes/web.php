@@ -36,18 +36,30 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/destroy/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
 
     });
-    // コメント関連
+    // コメント関連(投稿・削除)
     Route::post('/posts/{post}/comments', [App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
 
 })->middleware('auth');
 
     //管理者画面用
+    ////管理者アカウント作成・ログイン・ログアウト
     Route::get('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'showAdminLoginForm']);
     Route::get('/register/admin', [App\Http\Controllers\Auth\RegisterController::class, 'showAdminRegisterForm']);
     Route::post('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogin']);
     Route::post('/logout/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogout']);
     Route::post('/register/admin', [App\Http\Controllers\Auth\RegisterController::class, 'registerAdmin'])->name('admin-register');
+
+    Route::group(['prefix' => 'admin'], function(){
+    ////投稿一覧・詳細・削除
+    Route::get('/index', [App\Http\Controllers\admin\AdminPostController::class, 'index'])->middleware('auth:admin')->name('post.index');
+    Route::get('/show/{id}', [App\Http\Controllers\admin\AdminPostController::class, 'show'])->middleware('auth:admin')->name('post.show');
+    Route::post('/destroy/{id}', [App\Http\Controllers\admin\AdminPostController::class, 'destroy'])->middleware('auth:admin')->name('post.destroy');
+    ////コメント削除
+    Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\admin\AdminCommentController::class, 'destroy'])->middleware('auth:admin')->name('comments.destroy');
+    });
+
+
     Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
     
 

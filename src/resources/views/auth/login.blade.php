@@ -62,6 +62,9 @@
                                 </button>
                             </div>
                         </div>
+                        <div>
+                            新規登録はこちらから
+                        </div>
                     </form>
                 </div>
             </div>

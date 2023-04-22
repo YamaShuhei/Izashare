@@ -73,12 +73,6 @@ commands:
           key: npm-cache-{{ checksum "src/package-lock.json" }}
           paths:
             - node_modules
-  migration-seeding:
-    steps:
-      - run:
-          name: Migration & Seeding
-          command: yes | php artisan migrate --seed
-          working_directory: src
   test-unittest:
     steps:
       - run:

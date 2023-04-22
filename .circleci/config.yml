@@ -6,9 +6,13 @@ executors:
       - image: circleci/php:7.4-node-browsers
       - image: circleci/mysql:5.7
     environment:
-      - APP_DEBUG: true
-      - APP_ENV: testing
+      - APP_KEY: base64:K6uIH3aTmaGZr5IZyAiRDeV7wA8ZwXmWKQpIjxiRJME= 
+      - APP_DEBUG: false
+      - APP_ENV: local
       - DB_CONNECTION: circle_testing
+      - DB_DATABASE: laravel
+      - DB_USERNAME: phper
+      - DB_PASSWORD: secret
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/repo
 
@@ -106,9 +110,9 @@ jobs:
       - run:
          name: aws deploy
          command: |
-           ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd izashare && \
+           ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd /var/www && \
              git pull origin main && \
-             cd /var/www/izashare/src && \
+             cd izashare/src && \
              npm ci && \
              npm run prod && \
              php artisan migrate --force && \

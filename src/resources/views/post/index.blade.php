@@ -6,46 +6,28 @@
     <div class="my-4">
       <p class="col-sm-3 col-lg-2 text-center d-inline-block fs-3 midashi"> 投稿一覧</p>
     </div>
-    {{-- 検索フォーム --}}
-    <div>
-      <form class="input-group" method="GET" action="{{ route('post.index') }}">
-        <input class="form-control" type="search" placeholder="店舗名を入力" name="search" value="@if (isset($search)) {{ $search }} @endif">
-            <button class="btn btn-secondary" type="submit">検索</button>
-            <button class="btn btn-secondary">
-                <a href="{{ route('post.index') }}" class="text-white text-decoration-none">
-                    クリア
-                </a>
-            </button>
-    </form>
-    </div>
 
   </div>
   {{-- 投稿分だけ繰り返す --}}
+  <div class="row justify-content-center">
   @foreach($post as $p)
-   <div class="card border p-2 mb-2 shadow-sm">
-    <div class="row">
-      <div class="col-2">
-        <a href="{{route('post.show',['id' => $p->id])}}">
-          @if($p->image)
-           <img src="{{$p->image}}" alt="" style="max-height: 150px; width: 100%;">
-          @else
-            <img src="/images/no_image.jpg" alt="no image">
-          @endif
-        </a>
-      </div>
-      <div class="col-10">
-        <a href="{{route('post.show',['id' => $p->id])}}" class="fs-3">{{$p->title}}</a>
-        <div class="row">
-          <div>詳細：{{$p->description}}</div>
-          <div>投稿者：{{$p->user->name}}</div> 
-        </div>
+  
+   <div class="card col-6 offset-1 border mb-2 shadow-sm" style="width: 23rem;">
+      <a class="mt-2" href="{{route('post.show',['id' => $p->id])}}">
+        @if($p->image)
+          <img src="{{$p->image}}" alt="" style="height: 250px; width: 100%;">
+        @else
+          <img src="/images/noimage.jpg" alt="no image" style="height: 250px; width: 100%;">
+        @endif
+      </a>
+      <div class="card-body">
+        <a href="{{route('post.show',['id' => $p->id])}}" class="text-body fs-4">{{$p->title}}</a>
+        <div class="fs-5"><i class="fa-regular fa-comment "></i> {{$p->comments->count();}}</div>
       </div>
     </div>
-
-    </div>
-
-
   @endforeach
+  </div>
+
   <div class="d-flex justify-content-center">
     {{ $post->appends(request()->input())->links() }}
   </div>

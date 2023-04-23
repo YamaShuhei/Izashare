@@ -1,5 +1,9 @@
 import './bootstrap';
 import '../sass/app.scss';
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle';
+import jQuery from 'jquery';
+window.$ = jQuery;
 
 function delete_alert(e){
    if(!window.confirm('本当に削除しますか？')){

@@ -7,5 +7,9 @@
   <input type="file" name="csvFile" class="" id="csvFile"/>
   <input type="submit">
 </form>
-<input type="submit">
+
+<form action="{{ route('csv.download') }}" method="post" enctype="multipart/form-data">
+  @csrf
+  <button type="submit">csvダウンロード</button>
+</form>
 @endsection

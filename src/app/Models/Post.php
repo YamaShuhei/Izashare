@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
@@ -22,7 +24,7 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    //csvインポート用
+    //csvインポート・エクスポート
     public function csvHeader(): array
     {
         return [
@@ -30,8 +32,6 @@ class Post extends Model
             'user_id',
             'title',
             'description',
-            'created_at',
-            'updated_at',
         ];
     }
 
@@ -40,6 +40,7 @@ class Post extends Model
         $data = DB::table('posts')->get();
         return $data;
     }
+
     public function insertRow($row): array
     {
         return [
@@ -47,8 +48,6 @@ class Post extends Model
             $row->user_id,
             $row->title,
             $row->description,
-            $row->created_at,
-            $row->updated_at,
         ];
     }
 

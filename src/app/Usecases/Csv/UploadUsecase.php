@@ -2,6 +2,7 @@
 
 namespace App\Usecases\Csv;
 
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;

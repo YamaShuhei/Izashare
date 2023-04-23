@@ -4,7 +4,9 @@
 @section('content')
 <div class="container bg-none">
   <div class="row">
-    <p class="fw-bold fs-2">投稿一覧</p>
+    <div class="my-4">
+      <span class="bg-white fs-2 p-2 rounded"><i class="fa-solid fa-beer-mug-empty" style="color: #ffbf0f;"></i> 投稿一覧</span>
+    </div>
     {{-- 検索フォーム --}}
     <div>
       <form class="input-group" method="GET" action="{{ route('post.index') }}">
@@ -27,6 +29,8 @@
         <a href="{{route('post.show',['id' => $p->id])}}">
           @if($p->image)
            <img src="{{$p->image}}" alt="" style="max-height: 150px; width: 100%;">
+          @else
+            <img src="/images/no_image.jpg" alt="no image">
           @endif
         </a>
       </div>

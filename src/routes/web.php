@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
     #投稿用
     Route::group(['prefix' => 'post'], function(){
+
     Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
     Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     Route::get('/index', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
@@ -52,15 +53,16 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['prefix' => 'admin'], function(){
     ////投稿一覧・詳細・削除
-    Route::get('/index', [App\Http\Controllers\admin\AdminPostController::class, 'index'])->middleware('auth:admin')->name('post.index');
-    Route::get('/show/{id}', [App\Http\Controllers\admin\AdminPostController::class, 'show'])->middleware('auth:admin')->name('post.show');
-    Route::post('/destroy/{id}', [App\Http\Controllers\admin\AdminPostController::class, 'destroy'])->middleware('auth:admin')->name('post.destroy');
+    Route::get('/index', [App\Http\Controllers\admin\AdminPostController::class, 'index'])->middleware('auth:admin')->name('adminpost.index');
+    Route::get('/show/{id}', [App\Http\Controllers\admin\AdminPostController::class, 'show'])->middleware('auth:admin')->name('adminpost.show');
+    Route::post('/destroy/{id}', [App\Http\Controllers\admin\AdminPostController::class, 'destroy'])->middleware('auth:admin')->name('adminpost.destroy');
     ////コメント削除
-    Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\admin\AdminCommentController::class, 'destroy'])->middleware('auth:admin')->name('comments.destroy');
+    Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\admin\AdminCommentController::class, 'destroy'])->middleware('auth:admin')->name('admincomments.destroy');
+    //csvインポート・エクスポート
+    Route::view('/csv', '/admin/csv')->middleware('auth:admin');
+    Route::post('/csv/import', [App\Usecases\Csv\UploadUsecase::class, 'run'])->middleware('auth:admin')->name('csv.upload');
+    Route::post('/csv/download', [App\Usecases\Csv\DownloadUsecase::class, 'run'])->middleware('auth:admin')->name('csv.download');
     });
-
-
-    Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
     
 
 

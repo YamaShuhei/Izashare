@@ -31,7 +31,6 @@ class StorePostRequest extends FormRequest
           'max:20',
         ],
         'image' => [
-          'required',
           'file',
           'mimes:jpeg,jpg,png',
         ],

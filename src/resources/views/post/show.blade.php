@@ -11,7 +11,7 @@
       </div>
       <form class="col-1 mt-2 px-0" method="POST" action="{{route('post.destroy',['id'=>$post->id])}}">
         @csrf
-        <input type="submit"  class="btn btn-danger" name="delete" value="削除" onClick="delete_alert(event);return false;">
+        <input type="submit"  class="btn btn-danger" name="delete" value="削除" onclick="confirmDelete()">
       </form>
     @endif
   </div>
@@ -81,3 +81,14 @@
   </div>
 </div>
 @endsection
+
+<script>
+  function confirmDelete() {
+    if (confirm("本当に削除しますか？")) {
+      // OKがクリックされた場合の処理
+      // ここに削除処理などを記述します
+    } else {
+      // キャンセルがクリックされた場合の処理
+    }
+  }
+  </script>

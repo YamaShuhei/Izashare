@@ -34,7 +34,7 @@ class AdminPostController extends Controller
           $post = $query->paginate(10);
         }
 
-        return view('post.index')
+        return view('admin.index')
           ->with([
             'post' => $post,
             'search' => $search,
@@ -47,7 +47,7 @@ class AdminPostController extends Controller
         public function show($id){
             $post = Post::find($id);
 
-            return view('post.show',['post' => $post]);
+            return view('admin.show',['post' => $post]);
         }
 
         // 削除

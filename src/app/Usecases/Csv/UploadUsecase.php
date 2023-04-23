@@ -47,17 +47,6 @@ class UploadUsecase
             throw new Exception('Error:ヘッダーが一致しません');
         }
 
-        // アップロードしたCSVファイル内での重複チェック
-        if ($posts->duplicates("id")->count() > 0) {
-            throw new Exception("Error:idの重複：" . $posts->duplicates("id")->shift());
-        }
-
-        // 既存データとの重複チェック.pluckでDBに挿入したい$postsのidのみ抽出
-        $duplicateItem = DB::table('posts')->whereIn('id', $posts->pluck('id'));
-        if ($duplicateItem->count() > 0) {
-            throw new Exception("Error:idの重複：" . $duplicateItem->shift()->id);
-        }
-
         // $postsコレクションを配列にして、一括挿入
         DB::table('posts')->insert($posts->toArray());
     }

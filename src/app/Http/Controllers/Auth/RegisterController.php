@@ -106,7 +106,7 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
-                    : redirect(route('admin-home'));
+                    : redirect(route('adminpost.index'));
     }
 
     protected function createAdmin(array $data)

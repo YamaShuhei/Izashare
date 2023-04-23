@@ -19,6 +19,7 @@
     <!-- スクリプト -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'public/css/app.css'])
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -35,30 +36,17 @@
                 <img class="h-logo" src="{{asset('images/logo.png')}}">
                 </a>
 
-                {{-- 検索フォーム --}}
-                <div>
-                    <form class="input-group m-0" method="GET" action="{{ route('post.index') }}" style="height:45px;width:30vw;">
-                      <input class="form-control" type="search" placeholder="投稿タイトルを検索" name="search" value="@if (isset($search)) {{ $search }} @endif">
-                          <button class="btn bg-white" type="submit"><i class="fa-solid fa-magnifying-glass"></i> </button>
-
-                     </form>
-                  </div>
-
-                <div>
                     <!-- ナビバー右部 -->
-                    
-                        <!-- メニューバー -->
+                        <!-- ログアウト中ヘッダーメニュー -->
                         @if(!Auth::check() && (!isset($authgroup) || !Auth::guard($authgroup)->check()))
-                        <ul>
+                        <div class="d-flex">
                             @if (Route::has('login'))
                               {{-- 管理者用ログインリンク --}}
                               @isset($authgroup)
                                <a class="nav-link text-white text-end c-txt line" href="{{ url("login/$authgroup") }}">{{ __('管理者ログイン') }}</a>
                               @else
                               {{-- ユーザー用ログインリンク --}}
-                                <li class="nav-item">
-                                    <a class="p-0 nav-link text-white text-end mx-2 c-txt line" href="{{ route('login') }}">{{ __('ログイン') }}</a>
-                                </li>
+                                    <a class="p-0 nav-item text-white text-end mx-2 c-txt line" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                               @endisset
                             @endif
                             
@@ -67,36 +55,43 @@
                             @isset($authgroup)
                             {{-- 管理者用 --}}
                               @if (Route::has("$authgroup-register"))
-                                  <li class="nav-item">
                                       <a class="nav-link text-white text-end" href="{{ route("$authgroup-register") }}">{{ __('管理者新規登録') }}</a>
-                                  </li>
                               @endif
                             @else
                             {{-- ユーザー用 --}}
                               @if (Route::has('register'))
-                                  <li class="nav-item">
-                                      <a class="p-0 nav-link text-white text-end mx-2 c-txt line" href="{{ route('register') }}">{{ __('新規登録') }}</a>
-                                  </li>
+                                      <a class="p-0 nav-item text-white text-end mx-2 c-txt line" href="{{ route('register') }}">{{ __('新規登録') }}</a>
                               @endif
                             @endisset
+                        </div>
                             @endif
-                        </ul>
+
                         @else
                 
                     {{-- ログイン中ヘッダーメニュー --}}
+                    {{-- 検索フォーム --}}
+                    <div>
+                        <form class="input-group m-0" method="GET" action="{{ route('post.index') }}" style="height:45px;width:30vw;">
+                        <input class="form-control" type="search" placeholder="投稿タイトルを検索" name="search" value="@if (isset($search)) {{ $search }} @endif">
+                            <button class="btn bg-white" type="submit"><i class="fa-solid fa-magnifying-glass"></i> </button>
+
+                        </form>
+                    </div>
+
+                    <div>
                     <ul class="menu text-end">
                             <li class="menu__single">
-                                        @isset($authgroup)
-                                        {{-- 管理者名 --}}
-                                        <a class="px-2 c-txt line init-bottom text-white" href="#">
-                                          {{ Auth::guard($authgroup)->user()->name }}
-                                        </a>
-                                        @else
-                                        {{-- ユーザー名 --}}
-                                        <a class="px-3 border rounded border-success init-bottom text-white" href="#">
-                                          {{ Auth::user()->name }}
-                                        </a>
-                                        @endisset
+                                    @isset($authgroup)
+                                    {{-- 管理者名 --}}
+                                    <a class="px-2 c-txt line init-bottom text-white" href="#">
+                                        {{ Auth::guard($authgroup)->user()->name }}
+                                    </a>
+                                    @else
+                                    {{-- ユーザー名 --}}
+                                    <a class="px-3 border rounded border-success init-bottom text-white" href="#">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                    @endisset
                                     
                                     <ul class="menu__second-level p-0">
                                     {{-- 管理者用 --}}
@@ -116,6 +111,8 @@
                                     </li>
                                     @else
                                     {{-- ユーザー用 --}}
+                                    {{-- マイページ --}}
+                                    <li><a class="c-txt line text-white text-center" href="{{route('user.show',['id' => Auth::id()])}}"><i class="fa-regular fa-user"></i> マイページ</a></li>
                                     {{-- 投稿一覧 --}}
                                     <li><a class="c-txt line text-white text-center" href="{{route('post.index')}}"><i class="fa-solid fa-beer-mug-empty"></i> 投稿一覧</a></li>
                                     {{-- 新規投稿画面 --}}

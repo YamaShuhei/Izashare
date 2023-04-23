@@ -11,68 +11,12 @@ use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class PostController extends Controller
+class UserController extends Controller
 {
-    // 一覧画面
-    public function index(Request $request){
-        $post = Post::paginate(10);
-
-        $search = $request->input('search');
-        $query = Post::query();
-
-        if($search) {
-          $spaceConversion = mb_convert_kana($search ,'s', 'utf-8');
-          $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-
-          foreach($wordArraySearched as $value) {
-            $query->where('title', 'like', '%'.$value.'%');
-          }
-
-          $post = $query->paginate(10);
-        }
-
-        return view('post.index')
-          ->with([
-            'post' => $post,
-            'search' => $search,
-          ]);
-          
-    }
-
-    // 新規投稿画面
-    public function create(){
-        return view('post.create');
-    }
-
-    // 新規投稿
-    public function store(StorePostRequest $request){
-        $post = new Post();
-        $posts = Post::all();
-
-        if ($request->hasFile('image')) {
-          $path = $request->file('image')->store('images', 's3');
-          $post->image = Storage::disk('s3')->url($path);
-      } else {
-          $post->image = null;
-      }
-
-            $post->title = $request->input('title');
-            $post->description = $request->input('description');
-            $post->user_id = Auth::id();
-
-
-
-            $post->save();
-
-            //   投稿後詳細画面へ遷移
-            return view('post.show',['post' => $post]);
-            
-        }
-
+        //ユーザーページ
         public function show($id){
-            $post = Post::find($id);
-
-            return view('post.show',['post' => $post]);
+            $user = User::find($id);
+            return view('user.show',['user' => $user]);
         }
 
         // 更新

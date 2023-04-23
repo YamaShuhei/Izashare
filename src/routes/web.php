@@ -27,11 +27,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
     #投稿用
     Route::group(['prefix' => 'post'], function(){
-
+    // 新規投稿
     Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
     Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+    // 一覧表示
     Route::get('/index', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
+    // 詳細画面
     Route::get('/show/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+    // 編集/アップデート/削除
     Route::get('/edit/{id}', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
     Route::post('/update/{id}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
     Route::post('/destroy/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
@@ -40,6 +43,14 @@ Route::group(['middleware' => ['auth']], function() {
     // コメント関連(投稿・削除)
     Route::post('/posts/{post}/comments', [App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
+
+    // ユーザーページ用
+    Route::group(['prefix' => 'user'], function(){
+
+    Route::get('/show/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('user.show');
+    Route::get('/show/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    Route::post('/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+    });
 
 })->middleware('auth');
 

@@ -28,7 +28,6 @@ class Post extends Model
     public function csvHeader(): array
     {
         return [
-            'id',
             'user_id',
             'title',
             'description',
@@ -44,7 +43,6 @@ class Post extends Model
     public function insertRow($row): array
     {
         return [
-            $row->id,
             $row->user_id,
             $row->title,
             $row->description,

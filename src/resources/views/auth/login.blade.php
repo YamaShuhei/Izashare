@@ -3,9 +3,9 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8 mt-5 p-0 shadow-lg">
+        <div class="col-md-8 col-lg-6 mt-5 p-0 shadow-lg">
             <div class="card">
-                <div class="card-header fw-bold fs-4 ">{{ isset($authgroup) ? '管理者' : ""}} {{ __('ログイン') }}</div>
+                <p class="card-header fw-bold fs-4">{{ isset($authgroup) ? '管理者' : ""}} {{ __('ログイン') }}</p>
 
                 <div class="card-body">
                     @isset($authgroup)
@@ -15,11 +15,11 @@
                     @endisset
                         @csrf
 
-                        <div class="row mb-3">
+                        <div class="row my-4">
                             <label for="email" class="col-md-4 col-form-label text-md-end fw-bolder">{{ __('メールアドレス') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="info@example.com">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -29,11 +29,11 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row my-4">
                             <label for="password" class="col-md-4 col-form-label text-md-end fw-bolder">{{ __('パスワード') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -57,9 +57,17 @@
 
                         <div class="row mb-0">
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary start-50">
+                                <button type="submit" class="btn btn-primary rounded-pill start-50">
                                     {{ __('　　ログイン　　') }}
                                 </button>
+                            </div>
+                            <div>
+                                @isset($authgroup)
+                                @else
+                                <div class="mt-2 text-end">
+                                    新規登録は<a class="fs-5" href="{{ route('register') }}">こちら</a>
+                                </div>
+                                @endisset
                             </div>
                         </div>
                         <div>

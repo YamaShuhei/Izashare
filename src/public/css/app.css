@@ -11,10 +11,15 @@ body{
     font-family: "Sawarabi Gothic";
 }
 
+a{
+    text-decoration: none;
+}
+
 .hd-bg{
     background: rgba(0,0,0,0.7);
 }
 
+/* 透明度設定用 */
 .o-0{
     opacity:0;
 }
@@ -32,10 +37,224 @@ body{
     opacity:1;
 }
 
+/* 背景無効用 */
 .bg-none{
     background-image:none;
 }
 
+/* ヘッダーロゴサイズ調整 */
 .h-logo{
     width:100px;
 }
+
+/* マウスホバーで下線表示 */
+.c-txt.line {
+    padding-bottom: 5px;
+    position: relative;
+  }
+
+.c-txt.line::before {
+background: #ff701e;
+content: '';
+width: 100%;
+height: 2px;
+position: absolute;
+left: 0;
+bottom: 0;
+margin: auto;
+transform-origin: right top;
+transform: scale(0, 1);
+transition: transform .3s;
+}
+
+.c-txt.line:hover::before {
+transform-origin: left top;
+transform: scale(1, 1);
+}
+   
+/* 見出し用 */
+.midashi {
+    position: relative;
+    background: #eff4ff;
+    padding: 2px 5px 2px 20px;
+    left:20px;
+    font-size: 25px;
+    color: #474747;
+    border-radius: 0 10px 10px 0;
+  }
+  
+  .midashi:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f0fc";
+    display: inline-block;
+    position: absolute;
+    font-size: 32px;
+    padding: 0em;
+    color: white;
+    background: #ffc74d;
+    font-weight: 900;
+    width: 50px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    left: -0.65em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-radius: 50%;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.29);
+    border-bottom: solid 2px #b18303;
+  }
+
+  /* ヘッダーメニュー */
+  .center {
+    position: absolute;
+    display: inline-block;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /** Custom Select **/
+  .rule {
+    margin: 10px 0;
+    border: none;
+    height: 1.5px;
+    background-image: linear-gradient(left, #f0f0f0, #c9bbae, #f0f0f0);
+  }
+  
+  /* ===== Select Box ===== */
+  .sel {
+    font-size: 1rem;
+    display: inline-block;
+    margin: 3em 2em;
+    width: 350px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .sel::before {
+    position: absolute;
+    content: '\f063';
+    font-family: 'FontAwesome';
+    font-size: 2em;
+    color: #FFF;
+    right: 20px;
+    top: calc(50% - 0.5em);
+  }
+  
+  .sel.active::before {
+    transform: rotateX(-180deg);
+  }
+  
+  .sel__placeholder {
+    display: block;
+    font-family: 'Quicksand';
+    font-size: 2.3em;
+    color: #838e95;
+    padding: 0.2em 0.5em;
+    text-align: left;
+    pointer-events: none;
+    user-select: none;
+    visibility: visible;
+  }
+  
+  .sel.active .sel__placeholder {
+    visibility: hidden;
+  }
+  
+  .sel__placeholder::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.2em 0.5em;
+    content: attr(data-placeholder);
+    visibility: hidden;
+  }
+  
+  .sel.active .sel__placeholder::before {
+    visibility: visible;
+  }
+  
+  .sel__box {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -4px;
+    display: none;
+    list-style-type: none;
+    text-align: left;
+    font-size: 1em;
+    background-color: #FFF;
+    width: calc(100% + 8px);
+    box-sizing: border-box;
+  }
+  
+  .sel.active .sel__box {
+    display: block;
+    animation: fadeInUp 500ms;
+  }
+  
+  .sel__box__options {
+    display: list-item;
+    font-family: 'Quicksand';
+    font-size: 1.5em;
+    color: #838e95;
+    padding: 0.5em 1em;
+    user-select: none;
+  }
+  
+  .sel__box__options::after {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+    font-size: 0.5em;
+    margin-left: 5px;
+    display: none;
+  }
+  
+  .sel__box__options.selected::after {
+    display: inline;
+  }
+  
+  .sel__box__options:hover {
+    background-color: #ebedef;
+  }
+  
+  /* ----- Select Box Black Panther ----- */
+  .sel {
+    border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+  }
+  
+  .sel--black-panther {
+    z-index: 3;
+  }
+  
+  /* ----- Select Box Superman ----- */
+  .sel--superman {
+  /*   display: none; */
+    z-index: 2;
+  }
+  
+  /* ===== Keyframes ===== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+  
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }

@@ -5,7 +5,7 @@
 <div class="container bg-none">
   <div class="row">
     <div class="my-4">
-      <span class="bg-white fs-2 p-2 rounded"><i class="fa-solid fa-beer-mug-empty" style="color: #ffbf0f;"></i> 投稿一覧</span>
+      <span class="bg-white fs-2 p-2 rounde"> 投稿一覧</span>
     </div>
     {{-- 検索フォーム --}}
     <div>

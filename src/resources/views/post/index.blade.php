@@ -4,7 +4,7 @@
 <div class="container bg-none">
   <div class="row">
     <div class="my-4">
-      <span class="bg-white fs-2 p-2 rounded"><i class="fa-solid fa-beer-mug-empty" style="color: #ffbf0f;"></i> 投稿一覧</span>
+      <p class="col-sm-3 col-lg-2 text-center d-inline-block fs-3 midashi"> 投稿一覧</p>
     </div>
     {{-- 検索フォーム --}}
     <div>

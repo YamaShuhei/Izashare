@@ -91,7 +91,7 @@ class PostController extends Controller
 
               $post->title=$request->input('title');
               $post->description=$request->input('description');
-
+              $post->image=$request->inpput('image');
               $post->save();
               
             //更新後投稿一覧へ遷移

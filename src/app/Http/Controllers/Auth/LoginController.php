@@ -45,4 +45,9 @@ class LoginController extends Controller
         return redirect(route('login'));
     }
 
+    protected function adminLogout(Request $request)
+    {
+        return redirect(route('admin.login'));
+    }
+
 }

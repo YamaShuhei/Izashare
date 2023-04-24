@@ -144,6 +144,10 @@ transform: scale(1, 1);
     border-bottom: solid 2px #0039a2;
   }
 
+  td{
+    height:70px;
+  }
+
     /* マイページ見出し */
     .my-midashi {
         position: relative;
@@ -176,6 +180,40 @@ transform: scale(1, 1);
         border-radius: 50%;
         box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.29);
         border-bottom: solid 2px #b18303;
+      }
+      
+         /* CSVページ見出し */
+    .csv-midashi {
+        position: relative;
+        background: #eff4ff;
+        padding: 2px 5px 2px 20px;
+        left:10px;
+        font-size: 25px;
+        color: #474747;
+        border-radius: 0 10px 10px 0;
+      }
+      
+      .csv-midashi:before {
+        font-family: "Font Awesome 5 Free";
+        content: "\f6dd";
+        display: inline-block;
+        position: absolute;
+        font-size: 32px;
+        padding: 0em;
+        color: white;
+        background: #5dbcff;
+        font-weight: 900;
+        width: 50px;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        left: -0.65em;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        border-radius: 50%;
+        box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.29);
+        border-bottom: solid 2px #008488;
       }
     
 

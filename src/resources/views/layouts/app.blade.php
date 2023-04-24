@@ -55,7 +55,7 @@
                             @isset($authgroup)
                             {{-- 管理者用 --}}
                               @if (Route::has("$authgroup-register"))
-                                      <a class="nav-link text-white text-end" href="{{ route("$authgroup-register") }}">{{ __('管理者新規登録') }}</a>
+                                      <a class="c-txt line nav-link text-white text-end" href="{{ route("$authgroup-register") }}">{{ __('管理者新規登録') }}</a>
                               @endif
                             @else
                             {{-- ユーザー用 --}}
@@ -70,6 +70,9 @@
                 
                     {{-- ログイン中ヘッダーメニュー --}}
                     {{-- 検索フォーム --}}
+                    @isset($authgroup)
+
+                    @else
                     <div>
                         <form class="input-group m-0" method="GET" action="{{ route('post.index') }}" style="height:45px;width:30vw;">
                         <input class="form-control" type="search" placeholder="投稿タイトルを検索" name="search" value="@if (isset($search)) {{ $search }} @endif">
@@ -77,13 +80,14 @@
 
                         </form>
                     </div>
+                    @endisset
 
                     <div>
                     <ul class="menu text-end">
                             <li class="menu__single">
                                     @isset($authgroup)
                                     {{-- 管理者名 --}}
-                                    <a class="px-2 c-txt line init-bottom text-white" href="#">
+                                    <a class="px-3 border rounded border-success init-bottom text-white" href="#">
                                         {{ Auth::guard($authgroup)->user()->name }}
                                     </a>
                                     @else
@@ -97,13 +101,15 @@
                                     {{-- 管理者用 --}}
                                     @isset($authgroup)
                                     {{-- 投稿一覧 --}}
-                                    <li><a class="c-txt line text-white" href="{{route('adminpost.index')}}">投稿一覧</a></li>
+                                    <li><a class="c-txt line text-white text-center" href="{{route('adminpost.index')}}">投稿一覧</a></li>
+                                    {{-- CSV画面 --}}
+                                    <li><a class="c-txt line text-white text-center" href="{{route('csv.view')}}">CSV</a></li>
                                     {{-- 管理者ログアウト --}}
                                     <li>
-                                        <a class="btn btn-secondary" href="{{ route('logout') }}"   
+                                        <a class="c-txt line text-white text-center" href="{{ route('admin.logout') }}"   
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('管理者ログアウト') }}
+                                        {{ __('ログアウト') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> 
                                         @csrf

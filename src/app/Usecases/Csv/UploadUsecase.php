@@ -49,5 +49,6 @@ class UploadUsecase
 
         // $postsコレクションを配列にして、一括挿入
         DB::table('posts')->insert($posts->toArray());
+        return redirect('admin/index');
     }
 }

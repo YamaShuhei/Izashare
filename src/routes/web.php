@@ -46,7 +46,6 @@ Route::group(['middleware' => ['auth']], function() {
 
     // ユーザーページ用
     Route::group(['prefix' => 'user'], function(){
-
     Route::get('/show/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('user.show');
     Route::get('/show/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
     Route::post('/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
@@ -58,8 +57,8 @@ Route::group(['middleware' => ['auth']], function() {
     ////管理者アカウント作成・ログイン・ログアウト
     Route::get('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'showAdminLoginForm']);
     Route::get('/register/admin', [App\Http\Controllers\Auth\RegisterController::class, 'showAdminRegisterForm']);
-    Route::post('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogin']);
-    Route::post('/logout/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogout']);
+    Route::post('/login/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogin'])->name('admin.login');
+    Route::post('/logout/admin', [App\Http\Controllers\admin\LoginController::class, 'adminLogout'])->name('admin.logout');
     Route::post('/register/admin', [App\Http\Controllers\Auth\RegisterController::class, 'registerAdmin'])->name('admin-register');
 
     Route::group(['prefix' => 'admin'], function(){
@@ -70,7 +69,7 @@ Route::group(['middleware' => ['auth']], function() {
     ////コメント削除
     Route::delete('/comments/{comment}/destroy', [App\Http\Controllers\admin\AdminCommentController::class, 'destroy'])->middleware('auth:admin')->name('admincomments.destroy');
     //csvインポート・エクスポート
-    Route::view('/csv', '/admin/csv')->middleware('auth:admin');
+    Route::view('/csv', '/admin/csv')->middleware('auth:admin')->name('csv.view');
     Route::post('/csv/import', [App\Usecases\Csv\UploadUsecase::class, 'run'])->middleware('auth:admin')->name('csv.upload');
     Route::post('/csv/download', [App\Usecases\Csv\DownloadUsecase::class, 'run'])->middleware('auth:admin')->name('csv.download');
     });

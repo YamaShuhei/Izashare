@@ -55,7 +55,7 @@ class AdminPostController extends Controller
             $post=Post::find($id);
             $post->delete();
 
-            return redirect('post/index');
+            return redirect('admin/index');
         }
     
 }

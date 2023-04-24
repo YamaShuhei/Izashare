@@ -20,17 +20,21 @@ class PostController extends Controller
         $search = $request->input('search');
         $query = Post::query();
 
+        //検索機能
         if($search) {
           $spaceConversion = mb_convert_kana($search ,'s', 'utf-8');
           $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
 
+          // 投稿タイトルからあいまい検索
           foreach($wordArraySearched as $value) {
             $query->where('title', 'like', '%'.$value.'%');
           }
 
+          // 10件ごとのページネーション
           $post = $query->paginate(10);
         }
 
+        // post.indexを開く
         return view('post.index')
           ->with([
             'post' => $post,
@@ -49,19 +53,17 @@ class PostController extends Controller
         $post = new Post();
         $posts = Post::all();
 
+        // AmazonS3へ画像保存
         if ($request->hasFile('image')) {
           $path = $request->file('image')->store('images', 's3');
           $post->image = Storage::disk('s3')->url($path);
       } else {
           $post->image = null;
       }
-
+            
             $post->title = $request->input('title');
             $post->description = $request->input('description');
             $post->user_id = Auth::id();
-
-
-
             $post->save();
 
             //   投稿後詳細画面へ遷移
@@ -69,6 +71,7 @@ class PostController extends Controller
             
         }
 
+        // 詳細画面
         public function show($id){
             $post = Post::find($id);
 
@@ -81,6 +84,7 @@ class PostController extends Controller
             $post=Post::find($id);
             $posts = Post::all();
 
+            // AmazonS3の画像を更新
             if ($request->hasFile('image')) {
               $path = $request->file('image')->store('images', 's3');
               $post->image = Storage::disk('s3')->url($path);
@@ -88,7 +92,6 @@ class PostController extends Controller
               $post->image = null;
           }
               
-
               $post->title=$request->input('title');
               $post->description=$request->input('description');
               $post->save();

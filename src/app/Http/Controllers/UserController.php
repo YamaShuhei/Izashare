@@ -24,6 +24,7 @@ class UserController extends Controller
         public function update(UpdateUserRequest $request, $id){
 
             $user=User::find($id);
+            $posts = $user->posts;
               
               $user->name=$request->input('name');
               $user->email=$request->input('email');
@@ -31,7 +32,7 @@ class UserController extends Controller
               $user->save();
               
             //更新後投稿一覧へ遷移
-            return view('user.show', ['user' => $user]);
+            return view('user.show',['user' => $user, 'posts' => $posts]);
 
         }
 
